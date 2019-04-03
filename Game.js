@@ -5,6 +5,7 @@ var Buttons = [];
 var currentIndex = 0;
 var GameMode = 'ingame';
 var Won = false;
+var allowInput = true;
 
 function Card(x, y)
 {
@@ -89,7 +90,14 @@ function Button(x, y, colour, higher)
     }
     this.Touched = function()
     {
-        TakeTurn(this.higher);
+        if (allowInput == true)
+        {
+            TakeTurn(this.higher);
+        }
+        else
+        {
+            return;
+        }
     }
     Buttons.push(this);
 }
@@ -105,6 +113,7 @@ function TakeTurn(higherPressed)
             if (Cards[currentIndex].number <= Cards[currentIndex - 1].number)
             {
                GameOver();
+               allowInput = false;
                 return;
             }
         }
@@ -113,6 +122,7 @@ function TakeTurn(higherPressed)
             if (Cards[currentIndex].number >= Cards[currentIndex - 1].number)
             {
                 GameOver();
+                allowInput = false;
                  return;
             }
         }
@@ -154,6 +164,22 @@ function StartGame()
 
     MainLoop();
 }
+
+function restartGame()
+{
+    Cards = [];
+    Buttons = [];
+    currentIndex = 0;
+    GameMode = 'ingame';
+    Won = false;
+    allowInput = true;
+    StartGame();
+}
+
+$("#restart").on("click", function() {
+    restartGame();
+})
+
 
 function MouseClick(Event)
 {

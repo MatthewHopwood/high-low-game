@@ -1,0 +1,10 @@
+#restart {
+    padding: 25px;
+    background-color: green;
+    font-size: 20px;
+    color: #fafafa;
+    position: relative;
+    top: 0;
+    left: 400px;
+    margin-bottom: 25px;
+}
